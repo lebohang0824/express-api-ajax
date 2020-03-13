@@ -1,0 +1,76 @@
+body {
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  background: linear-gradient(90deg, #039be5 0%, #4fc3f7 100%);
+}
+
+.container {
+  width: 600px;
+  color: #0286c2;
+  margin: 50px auto;
+  background-color: #FFFFFF;
+}
+
+.default, .body, .header {
+  padding: 15px;
+  border-bottom: solid 5px #0286c2;
+}
+
+.header {
+  border-radius: 10px;
+}
+.header h1 {
+  margin: 0;
+  padding: 20px 0;
+  text-align: center;
+  font-weight: lighter;
+}
+
+.body {
+  color: #555;
+  display: block;
+}
+.body .group {
+  width: 100%;
+  padding-bottom: 10px;
+}
+.body .group input, .body .group textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  box-sizing: border-box;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+.body button {
+  width: 100%;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 20px 15px;
+  text-align: center;
+  border-radius: 5px;
+  border: solid 2px #14b4fc;
+  background-color: #2ebcfc;
+}
+
+table {
+  width: 100%;
+  padding-bottom: 10px;
+}
+table th, table td {
+  padding: 5px;
+  text-align: center;
+  box-sizing: border-box;
+  border: solid 1px #039be0;
+}
+table button {
+  cursor: pointer;
+  font-size: 18px;
+  padding: 10px 15px;
+  text-align: center;
+  border-radius: 5px;
+  color: #a82315;
+  border: solid 2px #eb6d60;
+  background-color: #ed7669;
+}
+
+/*# sourceMappingURL=style.css.map */
