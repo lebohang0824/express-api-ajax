@@ -15,7 +15,16 @@ form.onsubmit = async e => {
 	}
 
 	// Send request
-	const res = await fetch('/add-new-visitor', {
+	submitForm(body)
+
+	// Clear inputs
+	for(let i = 0; i < e.target.length; i++) {
+		e.target[i].value = null;
+	}
+}
+
+const submitForm = async body => {
+	const res = await fetch('http://127.0.0.1:3000/add-new-visitor', {
 		method: 'post',
 		headers: {'Content-Type': 'application/json'},
 		body: JSON.stringify(body)
@@ -24,10 +33,7 @@ form.onsubmit = async e => {
 	const data = await res.json();
 	createTableRows([data.visitor]);
 
-	// Clear inputs
-	for(let i = 0; i < e.target.length; i++) {
-		e.target[i].value = null;
-	}
+	return data;
 }
 
 // Create table rows
@@ -107,7 +113,7 @@ const deleteTableRow = async id => {
 	const row = document.getElementById(`visitor-${id}`);
 	
 	// Send request
-	const res = await fetch(`/delete-visitor/${id}`, {
+	const res = await fetch(`http://127.0.0.1:3000/delete-visitor/${id}`, {
 		method: 'delete'
 	});
 
@@ -122,10 +128,12 @@ const deleteTableRow = async id => {
 // Initialize table data
 const init = async () => {
 	
-	const res = await fetch('/view-visitors');
+	const res = await fetch('http://127.0.0.1:3000/view-visitors');
 	const data = await res.json();
 
 	createTableRows(data.visitors);
 }
 
 init();
+
+module.exports = {init, submitForm, deleteTableRow}

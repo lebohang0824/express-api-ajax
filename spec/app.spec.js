@@ -57,5 +57,62 @@ describe("Testing express api end points", () => {
 });
 
 describe("Testing express api ajax dom manipulation", () => {
-	
+	const jsdom = require('jsdom'),
+		  html  = require('./html');
+		
+	const visitor = {
+		name: 'John Blues',
+		age: 19,
+		date_of_visit: '1/8/2000',
+		time_of_visit: '12:00:00',
+		assistant: 'Lebohang Mokoena',
+		comments: 'No Comment'
+	}
+
+	beforeEach(() => {
+		dom      = new jsdom.JSDOM(html);
+	  	window = dom.window;
+	  	document = window.document;
+
+	  	fetch = require("node-fetch");
+	  	main  = require('../public/js/main');
+	});
+
+	let visitor_id;
+
+	// onSubmit form simulator
+	const onSubmit = form => {
+		form.addEventListener('onFormSubmit', e => {
+	     	;
+	  	});
+
+	  	const e = new dom.window.Event("onFormSubmit");
+
+	  	form.dispatchEvent(e);
+   	}
+
+   	it('Should add new visitor', async () => {
+   		const form = document.forms[0];
+
+   		const res = await main.submitForm(visitor);
+   		const row  = document.getElementById(`visitor-${res.visitor.id}`);
+
+   		visitor_id = res.visitor.id;
+
+   		expect(res.visitor.id.toString()).toEqual(row.childNodes[0].innerHTML);
+   		expect(res.visitor.name).toEqual(row.childNodes[1].innerHTML);
+   		expect(res.visitor.age.toString()).toEqual(row.childNodes[2].innerHTML);
+   		expect(new Date(res.visitor.date_of_visit).toLocaleDateString()).toEqual(row.childNodes[3].innerHTML);
+   		expect(res.visitor.time_of_visit).toEqual(row.childNodes[4].innerHTML);
+   		expect(res.visitor.assistant).toEqual(row.childNodes[5].innerHTML);
+   		expect(res.visitor.comments).toEqual(row.childNodes[6].innerHTML);
+   	});
+
+   	it('Should remove visitor', async () => {
+
+   		main.deleteTableRow(visitor_id);
+   		const row = document.getElementById(`visitor-${visitor_id}`);
+
+   		expect(row).toBeNull();
+   	});
 });
